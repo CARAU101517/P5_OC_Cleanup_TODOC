@@ -1,0 +1,55 @@
+@startuml Todoc Classes Diagram
+class Task {
+ - id : long
+ - projectId : long
+ - name : String
+ - creationTimestamp : long
+ ..Getter..
+ + getId()
+ + getName()
+ + Project getProject()
+ ..Setter..
+ - setId(long id)
+ - setProjectId(long projectId)
+ - setName(@NonNull String name)
+ - setCreationTimestamp(long creationTimestamp)
+ }
+
+class TaskAZComparator {
+ + int compare(Task left, Task right)
+ }
+
+class TaskZAComparator {
+ + int compare(Task left, Task right)
+ }
+
+class TaskRecentComparator {
++ int compare(Task left, Task right)
+ }
+
+class TaskOldComparator {
+ + int compare(Task left, Task right)
+ }
+
+class Project {
+ - id : long
+ - name : String
+ - color : int
+ ..Getter..
+ + Project[] getAllProjects()
+ + getProjectById(long id)
+ + getId()
+ + getName()
+ + getColor()
+ + toString()
+ }
+
+Project <--* Task
+Task <-- Project
+
+TaskAZComparator -- Task : sort
+TaskZAComparator -- Task : sort
+TaskRecentComparator -- Task : sort
+TaskOldComparator -- Task : sort
+
+@enduml

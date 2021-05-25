@@ -1,0 +1,15 @@
+@startuml Todoc Use Case Diagram
+left to right direction
+actor "CleanUp Employee" as CE
+rectangle Todoc {
+  usecase "List Tasks" as UC1
+  usecase "Add a Task" as UC2
+  usecase "Delete Task" as UC3
+  usecase "Sort Tasks" as UC4
+}
+CE --> UC1
+CE --> UC2
+CE --> UC3
+CE --> UC4
+
+@enduml
