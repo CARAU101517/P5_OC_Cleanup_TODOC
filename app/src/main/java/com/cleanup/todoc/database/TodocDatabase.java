@@ -9,6 +9,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import androidx.annotation.NonNull;
 
+import com.cleanup.todoc.database.dao.ProjectDao;
 import com.cleanup.todoc.database.dao.TaskDao;
 import com.cleanup.todoc.model.Project;
 import com.cleanup.todoc.model.Task;
@@ -19,8 +20,11 @@ public abstract class TodocDatabase extends RoomDatabase {
         // --- SINGLETON ---
         private static volatile TodocDatabase INSTANCE;
 
-        // --- DAO ---
+
+    // --- DAOs ---
+        public abstract ProjectDao projectDao();
         public abstract TaskDao taskDao();
+
 
         // --- INSTANCE ---
         public static TodocDatabase getInstance(Context context) {
@@ -28,8 +32,7 @@ public abstract class TodocDatabase extends RoomDatabase {
                 synchronized (TodocDatabase.class) {
                     if (INSTANCE == null) {
                         INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                                TodocDatabase.class, "MyDatabase.db")
-                                .addCallback(prepopulateDatabase())
+                                TodocDatabase.class, "MyTodocDatabase.db")
                                 .build();
                     }
                 }
@@ -37,37 +40,6 @@ public abstract class TodocDatabase extends RoomDatabase {
             return INSTANCE;
         }
 
-        // ---
-        private static Callback prepopulateDatabase(){
-            return new Callback() {
-
-                @Override
-                public void onCreate(@NonNull SupportSQLiteDatabase db) {
-                    super.onCreate(db);
-
-                    ContentValues contentValues = new ContentValues();
-                    contentValues.put("id", 1L);
-                    contentValues.put("name", "Projet Tartampion");
-                    contentValues.put("color", "0xFFEADAD1");
-
-                    ContentValues contentValues2 = new ContentValues();
-                    contentValues.put("id", 2L);
-                    contentValues.put("name", "Projet Lucidia");
-                    contentValues.put("color", "0xFFB4CDBA");
-
-                    ContentValues contentValues3 = new ContentValues();
-                    contentValues.put("id", 3L);
-                    contentValues.put("name", "Projet Circus");
-                    contentValues.put("color", "0xFFA3CED2");
-
-
-                    db.insert("Project", OnConflictStrategy.IGNORE, contentValues);
-                    db.insert("Project", OnConflictStrategy.IGNORE, contentValues2);
-                    db.insert("Project", OnConflictStrategy.IGNORE, contentValues3);
-
-                }
-            };
-        }
     }
 
 

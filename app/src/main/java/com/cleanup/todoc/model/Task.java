@@ -41,7 +41,7 @@ public class Task {
      */
     private long creationTimestamp;
 
-    /**
+        /**
      * Instantiates a new Task.
      *
      * @param id                the unique identifier of the task to set
@@ -72,6 +72,10 @@ public class Task {
      */
     private void setId(long id) {
         this.id = id;
+    }
+
+    public long getProjectId() {
+        return projectId;
     }
 
     /**
@@ -110,6 +114,10 @@ public class Task {
      */
     private void setName(@NonNull String name) {
         this.name = name;
+    }
+
+    public long getCreationTimestamp() {
+        return creationTimestamp;
     }
 
     /**

@@ -6,6 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.Menu;
@@ -17,6 +19,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.cleanup.todoc.Injections.Injection;
+import com.cleanup.todoc.Injections.TaskViewModelFactory;
 import com.cleanup.todoc.R;
 import com.cleanup.todoc.model.Project;
 import com.cleanup.todoc.model.Task;
@@ -24,6 +28,7 @@ import com.cleanup.todoc.model.Task;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>Home activity of the application which is displayed when the user opens the app.</p>
@@ -72,6 +77,9 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
     @Nullable
     private Spinner dialogSpinner = null;
 
+    // FOR DATA
+    private TaskViewModel taskViewModel;
+
     /**
      * The RecyclerView which displays the list of tasks
      */
@@ -106,7 +114,12 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
                 showAddTaskDialog();
             }
         });
+
+        //CALL VIEW MODEL
+        this.configureViewModel();
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -128,7 +141,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
             sortMethod = SortMethod.RECENT_FIRST;
         }
 
-        updateTasks();
+        updateTasks(new ArrayList<>(this.tasks));
 
         return super.onOptionsItemSelected(item);
     }
@@ -136,7 +149,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
     @Override
     public void onDeleteTask(Task task) {
         tasks.remove(task);
-        updateTasks();
+        taskViewModel.deleteATask(task);
     }
 
     /**
@@ -208,14 +221,15 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
      * @param task the task to be added to the list
      */
     private void addTask(@NonNull Task task) {
-        tasks.add(task);
-        updateTasks();
+        taskViewModel.createATask(task);
     }
 
     /**
      * Updates the list of tasks in the UI
      */
-    private void updateTasks() {
+    private void updateTasks(List<Task> tasks) {
+        this.tasks.clear();
+        this.tasks.addAll(tasks);
         if (tasks.size() == 0) {
             lblNoTasks.setVisibility(View.VISIBLE);
             listTasks.setVisibility(View.GONE);
@@ -293,6 +307,18 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
         if (dialogSpinner != null) {
             dialogSpinner.setAdapter(adapter);
         }
+    }
+
+    // ---- View Model and database ---///
+    private void configureViewModel() {
+        TaskViewModelFactory mViewModelFactory = Injection.provideTaskViewModelFactory(this);
+        this.taskViewModel = ViewModelProviders.of(this, mViewModelFactory).get(TaskViewModel.class);
+        taskViewModel.allTasks().observe(this, new Observer<List<Task>>() {
+            @Override
+            public void onChanged(@Nullable List<Task> tasks) {
+                updateTasks(tasks);
+            }
+        });
     }
 
     /**
