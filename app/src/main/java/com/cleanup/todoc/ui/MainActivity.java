@@ -20,7 +20,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.cleanup.todoc.Injections.Injection;
-import com.cleanup.todoc.Injections.TaskViewModelFactory;
+import com.cleanup.todoc.Injections.ViewModelFactory;
 import com.cleanup.todoc.R;
 import com.cleanup.todoc.model.Project;
 import com.cleanup.todoc.model.Task;
@@ -311,7 +311,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
 
     // ---- View Model and database ---///
     private void configureViewModel() {
-        TaskViewModelFactory mViewModelFactory = Injection.provideTaskViewModelFactory(this);
+        ViewModelFactory mViewModelFactory = Injection.provideTaskViewModelFactory(this);
         this.taskViewModel = ViewModelProviders.of(this, mViewModelFactory).get(TaskViewModel.class);
         taskViewModel.allTasks().observe(this, new Observer<List<Task>>() {
             @Override

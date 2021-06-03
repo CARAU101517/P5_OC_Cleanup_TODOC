@@ -10,14 +10,14 @@ import com.cleanup.todoc.ui.TaskViewModel;
 
 import java.util.concurrent.Executor;
 
-public class TaskViewModelFactory implements ViewModelProvider.Factory {
+public class ViewModelFactory implements ViewModelProvider.Factory {
 
     private final TaskDataRepository taskDataRepository;
     private final ProjectDataRepository projectDataRepository;
     private final Executor executor;
 
 
-    public TaskViewModelFactory(ProjectDataRepository projectDataRepository, TaskDataRepository taskDataRepository, Executor executor) {
+    public ViewModelFactory(ProjectDataRepository projectDataRepository, TaskDataRepository taskDataRepository, Executor executor) {
         this.taskDataRepository = taskDataRepository;
         this.projectDataRepository = projectDataRepository;
         this.executor = executor;

@@ -5,7 +5,6 @@ import android.content.Context;
 import com.cleanup.todoc.database.TodocDatabase;
 import com.cleanup.todoc.repositories.ProjectDataRepository;
 import com.cleanup.todoc.repositories.TaskDataRepository;
-import com.cleanup.todoc.ui.TaskViewModel;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -26,12 +25,12 @@ public class Injection {
         return Executors.newSingleThreadExecutor();
     }
 
-    public static TaskViewModelFactory provideTaskViewModelFactory(Context context) {
+    public static ViewModelFactory provideTaskViewModelFactory(Context context) {
         TaskDataRepository taskDataSource = provideTaskDataRepository(context);
         ProjectDataRepository projectDataSource = provideProjectDataRepository(context);
         Executor executor = provideExecutor();
 
-        return new TaskViewModelFactory(projectDataSource, taskDataSource, executor);
+        return new ViewModelFactory(projectDataSource, taskDataSource, executor);
     }
 
 }
