@@ -18,6 +18,7 @@ import static org.junit.Assert.assertSame;
  * @author Gaëtan HERFRAY
  */
 public class TaskUnitTest {
+
     @Test
     public void test_projects() {
         final Task task1 = new Task(1, 1, "task 1", new Date().getTime());
@@ -98,4 +99,64 @@ public class TaskUnitTest {
         assertSame(tasks.get(1), task2);
         assertSame(tasks.get(2), task3);
     }
+
+    @Test
+    public void test_showAllTasks() {
+        final Task task1 = new Task(1, 1, "Nettoyer les vitres", new Date().getTime());
+        final Task task2 = new Task(2, 2, "Faire les Poussières", new Date().getTime());
+        final Task task3 = new Task(3, 3, "Passer l'aspirateur", new Date().getTime());
+        final ArrayList<Task> tasks = new ArrayList<>();
+        tasks.add(task1);
+        tasks.add(task2);
+        tasks.add(task3);
+        assertEquals(3, tasks.size());
+    }
+
+    @Test
+    public void test_addATask() {
+        final Task task1 = new Task(1, 1, "Nettoyer les vitres", new Date().getTime());
+        final Task task2 = new Task(2, 2, "Faire les Poussières", new Date().getTime());
+        final Task task3 = new Task(3, 3, "Passer l'aspirateur", new Date().getTime());
+        final ArrayList<Task> tasks = new ArrayList<>();
+        tasks.add(task1);
+        tasks.add(task2);
+        tasks.add(task3);
+        assertEquals(3, tasks.size());
+        Task taskToCreate = new Task(4, 1, "Ranger la cuisine", new Date().getTime());
+        tasks.add(taskToCreate);
+        assertEquals(4, tasks.size());
+    }
+
+    @Test
+    public void test_updateATask() {
+        final Task task1 = new Task(1, 1, "Nettoyer les vitres", new Date().getTime());
+        final Task task2 = new Task(2, 2, "Faire les Poussières", new Date().getTime());
+        final Task task3 = new Task(3, 3, "Passer l'aspirateur", new Date().getTime());
+        Task taskToUpDate = new Task(4, 1, "Ranger la cuisine", new Date().getTime());
+        final ArrayList<Task> tasks = new ArrayList<>();
+        tasks.add(task1);
+        tasks.add(task2);
+        tasks.add(task3);
+        tasks.add(taskToUpDate);
+        taskToUpDate.setName("Vider le Lave-Vaisselles");
+        assertEquals( "Vider le Lave-Vaisselles", taskToUpDate.getName());
+    }
+
+    @Test
+    public void test_deleteATask() {
+        final Task task1 = new Task(1, 1, "Nettoyer les vitres", new Date().getTime());
+        final Task task2 = new Task(2, 2, "Faire les Poussières", new Date().getTime());
+        final Task task3 = new Task(3, 3, "Passer l'aspirateur", new Date().getTime());
+        Task taskToDelete = new Task(4, 1, "Ranger la cuisine", new Date().getTime());
+        final ArrayList<Task> tasks = new ArrayList<>();
+        tasks.add(task1);
+        tasks.add(task2);
+        tasks.add(task3);
+        tasks.add(taskToDelete);
+        assertEquals(4, tasks.size());
+        tasks.remove(taskToDelete);
+        assertEquals(3, tasks.size());
+    }
+
+
 }
