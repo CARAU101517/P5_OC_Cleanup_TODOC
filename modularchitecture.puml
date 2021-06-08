@@ -52,4 +52,18 @@ TaskZAComparator -- Task : sort
 TaskRecentComparator -- Task : sort
 TaskOldComparator -- Task : sort
 
+class MainActivity {
+ - id : long
+ - name : String
+ - color : int
+ ..Getter..
+ + Project[] getAllProjects()
+ + getProjectById(long id)
+ + getId()
+ + getName()
+ + getColor()
+ + toString()
+ }
+
+
 @enduml

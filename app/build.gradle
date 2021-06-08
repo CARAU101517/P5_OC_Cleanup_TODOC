@@ -10,6 +10,15 @@ android {
         versionName "1.0"
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
+    signingConfigs {
+        release {
+            storeFile file(project.file("keystore/cleanupkey.jks"))
+            storePassword "mykids20152017"
+            keyAlias "cleanupalias"
+            keyPassword "mykids20152017"
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled true
@@ -51,5 +60,5 @@ dependencies {
 
     //VIEW MODEL & LIVE DATA
     implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
-    
+
 }
