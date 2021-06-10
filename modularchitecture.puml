@@ -53,16 +53,25 @@ TaskRecentComparator -- Task : sort
 TaskOldComparator -- Task : sort
 
 class MainActivity {
- - id : long
- - name : String
- - color : int
- ..Getter..
- + Project[] getAllProjects()
- + getProjectById(long id)
- + getId()
- + getName()
- + getColor()
- + toString()
+ - allProject : Project[]
+ - tasks : ArrayList<Task>
+ - adapter : TaskAdapter
+ - sortMethod : SortMethod
+ + dialog : AlertDialog
+ - dialogEditText : EditText
+ - spinnerEditText : Spinner
+ - taskViewModel : TaskViewModel
+ - listTasks : RecyclerView
+ - lblNoTasks : TextView
+
+ + onCreate()
+ + onClick()
+ + onCreateOptionsMenu()
+ + onOptionsItemSelected()
+ + onDeleteTask()
+ - onPositiveButtonClick()
+ - showAddTaskDialog()
+
  }
 
 
