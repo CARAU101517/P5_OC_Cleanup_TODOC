@@ -71,8 +71,107 @@ class MainActivity {
  + onDeleteTask()
  - onPositiveButtonClick()
  - showAddTaskDialog()
-
+ - addTask()
+ - upDateTask()
+ - getAddTaskDialog()
+ - populateDialogSpinner()
+ - configureViewModel()
+ - - SortMethod()
  }
 
+ circle TaskDao
+
+ circle TodocDatabase
+
+ circle ProjectDao
+
+ class TaskDataRepository {
+  - taskDao : TaskDao
+
+    TaskDataRepository()
+  + getATask()
+  + getTasks()
+  + getTasksFromAProject()
+  + insertTask()
+  + upDateTask()
+  + deleteTask()
+  }
+
+ class ProjectDataRepository {
+  - projectDao : ProjectDao
+
+    ProjectDataRepository()
+  + createProject()
+  + getProjectById()
+  }
+
+ class ViewModelFactory {
+ - taskDataRepository : TaskDataRepository
+ - projectDataRepository : ProjectDataRepository
+ - executor : Executor
+
+ + ViewModelFactory()
+ + create()
+ }
+
+class TaskViewModel {
+ - taskDataRepository : TaskDataRepository
+ - projectDataRepository : ProjectDataRepository
+ - executor : Executor
+
+   TaskViewModel()
+ + allTasks()
+ + aTask()
+ + allTasksFromAProject()
+ + createATask()
+ + updateAtask()
+ + deleteAtask()
+ }
+
+ class Injection{
+ + provideTaskDataRepository()
+ + provideProjectDataRepository()
+ + provideExecutor()
+ + provideViewModelFactory()
+ }
+
+ class TasksAdapter {
+  - tasks : List<Task>
+  - deleteTaskListener : DeleteTaskListener
+
+    TaskAdapter()
+  + upDateTasks()
+  + onCreateViewHolder()
+  + onBindViewHolder()
+  + getItemCount()
+  + DeleteTaskListener()
+  + deleteAtask()
+  }
+
+  class TaskViewHolder {
+  - imgProject : AppCompatImageView
+  - lblTaskName : TextView
+  - lblProjectName : TextView
+  - imgDelete : AppCompatImageView
+  - deleteTaskListener : DeleteTaskListener
+
+   TaskViewHolder()
+   bind()
+  }
+
+  TaskViewHolder -- TasksAdapter
+  MainActivity -- TaskViewModel
+  ViewModelFactory -- TaskViewModel
+  TaskDataRepository -- TaskViewModel
+  ProjectDataRepository -- TaskViewModel
+  TodocDatabase -- Injection
+  Injection -- TaskViewModel
+  ProjectDao -- ProjectDataRepository
+  TaskDao -- TaskDataRepository
+  TasksAdapter -- MainActivity
+  Task -- TaskDao
+  Project -- ProjectDao
+  TaskDao -- TodocDatabase
+  ProjectDao -- TodocDatabase
 
 @enduml

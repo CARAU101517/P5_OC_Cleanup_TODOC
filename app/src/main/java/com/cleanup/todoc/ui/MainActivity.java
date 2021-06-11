@@ -311,7 +311,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
 
     // ---- View Model and database ---///
     private void configureViewModel() {
-        ViewModelFactory mViewModelFactory = Injection.provideTaskViewModelFactory(this);
+        ViewModelFactory mViewModelFactory = Injection.provideViewModelFactory(this);
         this.taskViewModel = ViewModelProviders.of(this, mViewModelFactory).get(TaskViewModel.class);
         taskViewModel.allTasks().observe(this, new Observer<List<Task>>() {
             @Override
