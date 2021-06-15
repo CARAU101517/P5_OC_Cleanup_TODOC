@@ -80,9 +80,7 @@ class MainActivity {
  }
 
  circle TaskDao
-
  circle TodocDatabase
-
  circle ProjectDao
 
  class TaskDataRepository {
@@ -160,18 +158,18 @@ class TaskViewModel {
   }
 
   TaskViewHolder -- TasksAdapter
+  TasksAdapter -- MainActivity
   MainActivity -- TaskViewModel
   ViewModelFactory -- TaskViewModel
-  TaskDataRepository -- TaskViewModel
-  ProjectDataRepository -- TaskViewModel
-  TodocDatabase -- Injection
   Injection -- TaskViewModel
+  ProjectDataRepository -- TaskViewModel
+  TaskDataRepository -- TaskViewModel
   ProjectDao -- ProjectDataRepository
   TaskDao -- TaskDataRepository
-  TasksAdapter -- MainActivity
-  Task -- TaskDao
-  Project -- ProjectDao
   TaskDao -- TodocDatabase
   ProjectDao -- TodocDatabase
+  Task -- TaskDao
+  Project -- ProjectDao
+
 
 @enduml

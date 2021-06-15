@@ -1,0 +1,22 @@
+@startuml
+
+class Project {
+ projectId (id) : LONG NOT NULL [PK]
+ --
+ projectName (name) : VARCHAR NOT NULL
+ projectColor (color): INTEGER NOT NULL
+ }
+
+class Task {
+ taskId (id) : LONG NOT NULL [PK]
+ --
+ taskName (name): VARCHAR NOT NULL
+ creationTimestamp : LONG
+ projectId (id) : LONG NOT NULL [FK]
+ }
+
+Project "1" -- "many" Task
+
+
+
+@enduml

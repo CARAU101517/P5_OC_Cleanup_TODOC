@@ -5,11 +5,14 @@ rectangle Todoc {
   usecase "List Tasks" as UC1
   usecase "Add a Task" as UC2
   usecase "Delete Task" as UC3
-  usecase "Sort Tasks" as UC4
+  usecase "Sort by Tasks Dates" as UC4
+  usecase "Sort by Tasks Name" as UC5
 }
+
 CE --> UC1
 CE --> UC2
 CE --> UC3
 CE --> UC4
+CE --> UC5
 
 @enduml
